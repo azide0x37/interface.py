@@ -1,22 +1,32 @@
 import tkMessageBox
 from Tkinter import *
 import csv
+import re
+import pandas as pd
+
+with open('sipdevices.csv') as f:
+    reader = pd.read_csv(f, delimiter=',')
 
 def show_entry_fields():
-	with open('sipdevices.csv', 'rt') as f:
+    value.get()
+    b = reader.loc[reader['SIP System Name'] == value]
+    print type(value)
+    print b
+
+
+"""def show_entry_fields():
+	with open('sipdevices.csv', 'rb') as f:
 		reader = csv.reader(f, delimiter=',')
-		for row in reader:
-		  	for field in row:
-		   		if field == e:
-		   		    print "yes"
-		   		#else:
-		   		#	print "no"
-	#print("SIP device: %s" %(e.get()))
+		result = [row[1].strip()]
+		for field in reader: 
+		    print field
+		   		    #c213wjdzpha00"""
 
 master = Tk()
 Label(master, text="SIP device").grid(row=0)
 
-e = Entry(master)
+value = StringVar()
+e = Entry(master, textvariable=value)
 
 e.grid(row=0, column=1)
 
